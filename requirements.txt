@@ -1,0 +1,9 @@
+langchain
+langchain-community
+python-dotenv
+huggingface_hub
+langchain-text-splitters
+streamlit
+langchain-groq
+faiss-cpu
+pymupdf
