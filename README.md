@@ -11,8 +11,8 @@ When a file has been uploaded, but the document has not been processed, the appl
 When a file has been processed (i.e., the PDF text has been extracted, split into chunks and the embeddings stored in the vector database):
 ![Screenshot of the application after a document has been uploaded and processed](examples/uploaded-doc-processed-no-query.png)
 
-When a question has been asked, this is what ther response looks like in the application:
-![Screenshot of the application after a document has been uploaded, processed and a query has been sent to the chatbot](examples/application-in-use-query.png)
+When questions have been asked, this is what the chat history looks like in the application:
+![Screenshot of the application after a document has been uploaded, processed and a query has been sent to the chatbot](examples/application-in-use.png)
 
 
 ## Project Structure
