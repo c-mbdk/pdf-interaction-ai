@@ -6,7 +6,10 @@ Before a file is loaded, the application looks like this in the browser window:
 ![Screenshot of the application in the browser window before any document is uploaded and any questions are asked](examples/application-no-doc.png)
 
 When a file has been uploaded, the application looks like this:
-![Screenshot of the application after a document has been uploaded and processed](examples/uploaded-doc-no-query.png)
+![Screenshot of the application after a document has been uploaded but not processed](examples/application-uploaded-doc-unprocessed.png)
+
+When a file has been processed (i.e., the PDF text has been extracted, split into chunks and the embeddings stored in the vector database):
+![Screenshot of the application after a document has been uploaded and processed](examples/uploaded-doc-processed-no-query.png)
 
 When a question has been asked, this is what ther response looks like in the application:
 ![Screenshot of the application after a document has been uploaded, processed and a query has been sent to the chatbot](examples/application-in-use-query.png)

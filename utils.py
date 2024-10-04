@@ -14,6 +14,7 @@ load_dotenv()
 llm = ChatGroq(temperature=0, model_name="llama3-70b-8192")
 embeddings = HuggingFaceEmbeddings()
 
+# PDF Content Processing
 def get_pdf_text(pdf_doc):
     doc_text = ""
     with pymupdf.open(pdf_doc) as doc:
@@ -42,6 +43,7 @@ def get_vectorstore(doc_chunks):
 
     return vectorstore
 
+# Conversation chain setup
 def get_conversation_chain(tools, question):
 
     prompt = ChatPromptTemplate.from_messages(
@@ -61,9 +63,24 @@ def get_conversation_chain(tools, question):
 
     agent_executor = AgentExecutor(agent=agent, tools=tool, verbose=True)
     response = agent_executor.invoke({"input": question})
-    st.write("Answer: ", response['output'])
 
+    # updating chat history - chatbot messages
+    with st.chat_message("assistant"):
+        st.write(response['output'])
+    st.session_state.messages.append(
+        {"role": "assistant", "content": response['output']}
+    )
+    
 
+# Updating chat history - user messages
+def update_chat_history():
+    with st.chat_message("user"):
+        st.markdown(st.session_state.user_query)
+
+    user_message = st.session_state.user_query
+    st.session_state.messages.append({"role": "user", "content": user_message})
+
+# Initial processing of user query
 def process_user_input(user_question):
     new_db = FAISS.load_local(
         "faiss_db", embeddings, allow_dangerous_deserialization=True
@@ -77,9 +94,11 @@ def process_user_input(user_question):
         "This tool is to provide answers to queries based on the pdf"
     )
 
+    update_chat_history()
     get_conversation_chain(retrieval_chain, user_question)
 
 
+# PDF Processing (via widget)
 def process_file(file):
     doc_text = get_pdf_text(file)
     doc_chunks = split_doc_text(doc_text)
